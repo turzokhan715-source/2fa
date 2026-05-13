@@ -2,14 +2,12 @@ let recentCodes = [];
 let recentVisible = false;
 let mailCheckInterval = null;
 
-// Page Navigation
 function showPage(pageId) {
     document.getElementById('mainPage').classList.add('hidden');
     document.getElementById('mailPage').classList.add('hidden');
     document.getElementById(pageId).classList.remove('hidden');
 }
 
-// 2FA Functions
 function generate2FACode() {
     const secretKey = document.getElementById('secretKey').value.trim();
     
@@ -18,21 +16,17 @@ function generate2FACode() {
         return;
     }
 
-    // Generate random 6-digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     
-    // Display code
     document.getElementById('generatedCode').textContent = code;
     document.getElementById('2faCodeDisplay').classList.remove('hidden');
     
-    // Auto copy to clipboard
     navigator.clipboard.writeText(code).then(() => {
         showSuccessMessage('✅ Code generated and copied!');
     }).catch(() => {
         showSuccessMessage('✅ Code generated!');
     });
 
-    // Add to recent codes
     addToRecent(code);
 }
 
@@ -49,7 +43,6 @@ function addToRecent(code) {
         time: timeString
     });
 
-    // Keep only last 10 codes
     if (recentCodes.length > 10) {
         recentCodes.pop();
     }
@@ -87,7 +80,6 @@ function toggleRecent() {
     }
 }
 
-// Mail Box Functions
 function extractEmail() {
     const token = document.getElementById('tokenInput').value.trim();
     
@@ -98,7 +90,6 @@ function extractEmail() {
         return;
     }
 
-    // Extract email (first part before |)
     const parts = token.split('|');
     if (parts.length > 0 && parts[0].includes('@')) {
         const email = parts[0];
@@ -106,7 +97,6 @@ function extractEmail() {
         document.getElementById('emailDisplay').classList.remove('hidden');
         document.getElementById('codeDisplay').classList.remove('hidden');
         
-        // Start checking for code
         startMailCheck();
     }
 }
@@ -114,14 +104,11 @@ function extractEmail() {
 function startMailCheck() {
     stopMailCheck();
     
-    // Reset code display
     document.getElementById('verificationCode').textContent = 'Waiting... ⏳';
     document.getElementById('verificationCode').classList.add('waiting');
     document.getElementById('copyCodeBtn').disabled = true;
     
-    // Simulate checking for code
     mailCheckInterval = setInterval(() => {
-        // 20% chance each check
         if (Math.random() < 0.2) {
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             displayVerificationCode(code);
@@ -151,7 +138,6 @@ function clearMailData() {
     stopMailCheck();
 }
 
-// Copy Functions
 function copyCode(elementId) {
     const text = document.getElementById(elementId).textContent;
     if (text && text !== '------') {
@@ -193,7 +179,13 @@ function showSuccessMessage(message) {
     }, 2500);
 }
 
-// Cleanup
 window.addEventListener('beforeunload', () => {
     stopMailCheck();
 });
+
+✅ Save করার নিয়ম:
+📁 Folder Structure:
+📁 Your Project Folder
+  ├── index.html
+  ├── style.css
+  └── script.js
