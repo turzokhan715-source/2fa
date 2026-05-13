@@ -15,11 +15,11 @@ function generate2FACode() {
     const secretKey = document.getElementById('secretKey').value.trim();
     
     if (!secretKey) {
-        alert('Please enter a secret key!');
+        alert('⚠️ Please enter a secret key!');
         return;
     }
 
-    // Generate random 6-digit code (in real app, use TOTP algorithm)
+    // Generate random 6-digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     
     // Display code
@@ -28,7 +28,9 @@ function generate2FACode() {
     
     // Auto copy to clipboard
     navigator.clipboard.writeText(code).then(() => {
-        showSuccessMessage('Code generated and copied to clipboard!');
+        showSuccessMessage('✅ Code generated and copied!');
+    }).catch(() => {
+        showSuccessMessage('✅ Code generated!');
     });
 
     // Add to recent codes
@@ -37,7 +39,11 @@ function generate2FACode() {
 
 function addToRecent(code) {
     const now = new Date();
-    const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    const timeString = now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+    });
     
     recentCodes.unshift({
         code: code,
@@ -56,8 +62,7 @@ function updateRecentList() {
     const listDiv = document.getElementById('recentList');
     
     if (recentCodes.length === 0) {
-        listDiv.innerHTML = '<p style="text-align: center; color: 
-;">No codes generated yet</p>';
+        listDiv.innerHTML = '<p class="empty-state">No codes generated yet</p>';
         return;
     }
 
@@ -108,17 +113,16 @@ function extractEmail() {
 }
 
 function startMailCheck() {
-    stopMailCheck(); // Clear any existing interval
+    stopMailCheck();
     
     // Reset code display
     document.getElementById('verificationCode').textContent = 'Waiting... ⏳';
     document.getElementById('verificationCode').classList.add('waiting');
     document.getElementById('copyCodeBtn').disabled = true;
-    document.getElementById('copyCodeBtn').style.opacity = '0.5';
     
-    // Simulate checking for code (in real app, this would call an API)
+    // Simulate checking for code
     mailCheckInterval = setInterval(() => {
-        // Simulate random code arrival (20% chance each check)
+        // 20% chance each check
         if (Math.random() < 0.2) {
             const code = Math.floor(100000 + Math.random() * 900000).toString();
             displayVerificationCode(code);
@@ -138,8 +142,7 @@ function displayVerificationCode(code) {
     document.getElementById('verificationCode').textContent = code;
     document.getElementById('verificationCode').classList.remove('waiting');
     document.getElementById('copyCodeBtn').disabled = false;
-    document.getElementById('copyCodeBtn').style.opacity = '1';
-    showSuccessMessage('Verification code received!');
+    showSuccessMessage('✅ Verification code received!');
 }
 
 function clearMailData() {
@@ -152,16 +155,22 @@ function clearMailData() {
 // Copy Functions
 function copyCode(elementId) {
     const text = document.getElementById(elementId).textContent;
-    navigator.clipboard.writeText(text).then(() => {
-        showSuccessMessage('Copied to clipboard!');
-    });
+    if (text && text !== '------') {
+        navigator.clipboard.writeText(text).then(() => {
+            showSuccessMessage('✅ Copied to clipboard!');
+        }).catch(() => {
+            showSuccessMessage('⚠️ Copy failed. Please try manually.');
+        });
+    }
 }
 
 function copyText(elementId) {
     const text = document.getElementById(elementId).textContent;
     if (text && text !== 'Waiting... ⏳') {
         navigator.clipboard.writeText(text).then(() => {
-            showSuccessMessage('Copied to clipboard!');
+            showSuccessMessage('✅ Copied to clipboard!');
+        }).catch(() => {
+            showSuccessMessage('⚠️ Copy failed. Please try manually.');
         });
     }
 }
@@ -180,11 +189,12 @@ function showSuccessMessage(message) {
     container.insertBefore(msgDiv, container.firstChild);
 
     setTimeout(() => {
-        msgDiv.remove();
-    }, 3000);
+        msgDiv.style.animation = 'slideDown 0.3s ease reverse';
+        setTimeout(() => msgDiv.remove(), 300);
+    }, 2500);
 }
 
-// Cleanup on page unload
+// Cleanup
 window.addEventListener('beforeunload', () => {
     stopMailCheck();
 });
