@@ -50,19 +50,20 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* Navigation Buttons (Top) */
 .button-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
-.main-button {
-    background: rgba(255, 255, 255, 0.95);
+.nav-button {
+    background: rgba(168, 216, 255, 0.3);
     color: 
 ;
-    border: 1px solid rgba(142, 197, 252, 0.3);
+    border: 1px solid rgba(142, 197, 252, 0.4);
     border-radius: 16px;
-    padding: 32px 16px;
+    padding: 20px 16px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -70,24 +71,51 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    box-shadow: 0 4px 16px rgba(142, 197, 252, 0.2);
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(142, 197, 252, 0.15);
+    min-height: 80px;
 }
 
-.main-button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(142, 197, 252, 0.3);
-    background: rgba(255, 255, 255, 1);
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(142, 197, 252, 0.25);
+    background: rgba(168, 216, 255, 0.4);
 }
 
-.main-button:active {
-    transform: translateY(-2px);
+.nav-button.active {
+    background: rgba(168, 216, 255, 0.5);
+    border-color: rgba(142, 197, 252, 0.6);
 }
 
-.main-button .icon {
-    font-size: 32px;
+.nav-button:active {
+    transform: translateY(-1px);
 }
 
+.nav-button .icon {
+    font-size: 36px;
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    color: 
+;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.section-header p {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+}
+
+/* Input Group */
 .input-group {
     margin-bottom: 20px;
 }
@@ -159,6 +187,7 @@ textarea.input-box {
     line-height: 1.5;
 }
 
+/* Buttons */
 .btn {
     background: linear-gradient(135deg, 
  0%, 
@@ -189,6 +218,7 @@ textarea.input-box {
     transform: translateY(0);
 }
 
+/* Display Elements */
 .display-label {
     font-size: 11px;
     color: 
@@ -216,8 +246,7 @@ textarea.input-box {
     text-align: center;
     letter-spacing: 6px;
     font-family: 'Courier New', monospace;
-    color: 
-;
+    color: #1a1a1a;
     font-weight: 700;
     padding: 20px;
     background: rgba(142, 197, 252, 0.15);
@@ -259,6 +288,7 @@ textarea.input-box {
     transform: none;
 }
 
+/* Recent Codes */
 .recent-codes {
     margin-top: 0;
 }
@@ -286,8 +316,7 @@ textarea.input-box {
 
 .checkbox {
     font-size: 18px;
-    color: 
-;
+    color: #6b7280;
 }
 
 .recent-header h3 {
@@ -335,8 +364,7 @@ textarea.input-box {
 }
 
 .recent-item:hover {
-    border-color: 
-;
+    border-color: #8ec5fc;
     box-shadow: 0 2px 12px rgba(142, 197, 252, 0.2);
 }
 
@@ -369,6 +397,7 @@ textarea.input-box {
     padding: 20px;
 }
 
+/* Back Button */
 .back-btn {
     background: rgba(255, 255, 255, 0.9);
     color: 
@@ -393,6 +422,7 @@ textarea.input-box {
     box-shadow: 0 4px 12px rgba(142, 197, 252, 0.2);
 }
 
+/* Utility Classes */
 .hidden {
     display: none;
 }
@@ -409,6 +439,7 @@ textarea.input-box {
     50% { opacity: 0.5; }
 }
 
+/* Success Message */
 .success-message {
     background: linear-gradient(135deg, 
  0%, 
@@ -456,3 +487,4 @@ textarea.input-box {
     background: 
 ;
 }
+
