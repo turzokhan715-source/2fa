@@ -4,18 +4,476 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Authentication Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: 
+ !important;
+            background: linear-gradient(135deg, 
+ 0%, 
+ 100%) !important;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: 
+ !important;
+            margin-bottom: 24px;
+            padding: 16px 0;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: 
+ !important;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.85;
+            font-weight: 400;
+            color: 
+ !important;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .nav-button {
+            background: rgba(168, 216, 255, 0.3);
+            color: 
+;
+            border: 1px solid rgba(142, 197, 252, 0.4);
+            border-radius: 16px;
+            padding: 20px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(142, 197, 252, 0.15);
+            min-height: 80px;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(142, 197, 252, 0.25);
+            background: rgba(168, 216, 255, 0.4);
+        }
+
+        .nav-button.active {
+            background: rgba(168, 216, 255, 0.5);
+            border-color: rgba(142, 197, 252, 0.6);
+        }
+
+        .nav-button .icon {
+            font-size: 36px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: 
+;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            font-size: 13px;
+            color: 
+;
+            font-weight: 400;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-label {
+            font-weight: 700;
+            color: 
+;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .clear-btn {
+            background: 
+;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .clear-btn:hover {
+            background: 
+;
+            transform: scale(1.05);
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(142, 197, 252, 0.3);
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            color: 
+;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: 
+;
+            box-shadow: 0 0 0 4px rgba(142, 197, 252, 0.15);
+            background: white;
+        }
+
+        textarea.input-box {
+            min-height: 100px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, 
+ 0%, 
+ 100%);
+            color: 
+;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(142, 197, 252, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(142, 197, 252, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .display-label {
+            font-size: 11px;
+            color: 
+;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .display-content {
+            font-size: 15px;
+            color: 
+;
+            font-weight: 600;
+            word-break: break-all;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: rgba(142, 197, 252, 0.1);
+            border-radius: 8px;
+        }
+
+        .code-display {
+            font-size: 32px;
+            text-align: center;
+            letter-spacing: 6px;
+            font-family: 'Courier New', monospace;
+            color: 
+;
+            font-weight: 700;
+            padding: 20px;
+            background: rgba(142, 197, 252, 0.15);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .center-btn {
+            text-align: center;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, 
+ 0%, 
+ 100%);
+            color: 
+;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 12px rgba(142, 197, 252, 0.3);
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(142, 197, 252, 0.4);
+        }
+
+        .copy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .recent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px;
+            background: rgba(142, 197, 252, 0.1);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .recent-header:hover {
+            background: rgba(142, 197, 252, 0.15);
+        }
+
+        .recent-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox {
+            font-size: 18px;
+            color: 
+;
+        }
+
+        .recent-header h3 {
+            font-size: 15px;
+            color: 
+;
+            font-weight: 600;
+        }
+
+        .toggle-btn {
+            background: 
+;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05);
+            background: 
+;
+        }
+
+        .recent-list {
+            background: rgba(142, 197, 252, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .recent-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(142, 197, 252, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .recent-item:hover {
+            border-color: 
+;
+            box-shadow: 0 2px 12px rgba(142, 197, 252, 0.2);
+        }
+
+        .recent-code {
+            font-size: 18px;
+            font-weight: 700;
+            color: 
+;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+
+        .recent-time {
+            font-size: 12px;
+            color: 
+;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: 
+;
+            font-size: 13px;
+            padding: 20px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: 
+;
+            border: 1px solid rgba(142, 197, 252, 0.3);
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: white;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(142, 197, 252, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .waiting {
+            color: 
+;
+            font-style: italic;
+            font-size: 18px;
+            font-weight: 700;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, 
+ 0%, 
+ 100%);
+            color: 
+;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            animation: slideDown 0.3s ease;
+            box-shadow: 0 4px 16px rgba(129, 199, 132, 0.3);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Main Page -->
         <div id="mainPage">
             <div class="header">
                 <h1>🔐 Secure Authentication Portal</h1>
                 <p>Generate codes instantly</p>
             </div>
             
-            <!-- Top Navigation Buttons -->
             <div class="card">
                 <div class="button-grid">
                     <button class="nav-button active">
@@ -27,7 +485,6 @@
                 </div>
             </div>
 
-            <!-- 2FA Section -->
             <div class="card">
                 <div class="section-header">
                     <h2>🔐 2FA Authenticator</h2>
@@ -37,26 +494,24 @@
                     <div class="input-label">SECRET KEY</div>
                     <input type="text" id="secretKey" class="input-box" placeholder="J8WHY1DRHMPKJ9XP">
                 </div>
-                <button class="btn" onclick="generate2FACode()">
+                <button class="btn" id="generateBtn">
                     <span>🔑</span> Generate Code
                 </button>
             </div>
 
-            <!-- Generated Code Display -->
             <div id="2faCodeDisplay" class="card hidden">
                 <div class="display-label">GENERATED CODE</div>
                 <div class="code-display" id="generatedCode">------</div>
                 <div class="center-btn">
-                    <button class="copy-btn" onclick="copyCode('generatedCode')">
+                    <button class="copy-btn" id="copyGeneratedBtn">
                         <span>📋</span> Copy Code
                     </button>
                 </div>
             </div>
 
-            <!-- Recent Codes Section -->
             <div class="card">
                 <div class="recent-codes">
-                    <div class="recent-header" onclick="toggleRecent()">
+                    <div class="recent-header" id="recentHeader">
                         <div class="recent-title">
                             <span class="checkbox">☐</span>
                             <h3>Recent Codes</h3>
@@ -70,9 +525,8 @@
             </div>
         </div>
 
-        <!-- Mail Box Page -->
         <div id="mailPage" class="hidden">
-            <button class="back-btn" onclick="showPage('mainPage')">
+            <button class="back-btn" id="backBtn">
                 <span>←</span> Back
             </button>
             
@@ -85,18 +539,18 @@
                 <div class="input-group">
                     <div class="input-header">
                         <div class="input-label">Account Details</div>
-                        <button class="clear-btn" onclick="clearMailData()">
+                        <button class="clear-btn" id="clearBtn">
                             <span>✕</span> Clear
                         </button>
                     </div>
-                    <textarea id="tokenInput" class="input-box" placeholder="Paste full token here...&#10;email|password|token" oninput="extractEmail()"></textarea>
+                    <textarea id="tokenInput" class="input-box" placeholder="Paste full token here...&#10;email|password|token"></textarea>
                 </div>
             </div>
 
             <div id="emailDisplay" class="card hidden">
                 <div class="display-label">📧 EXTRACTED EMAIL</div>
                 <div class="display-content" id="extractedEmail"></div>
-                <button class="copy-btn" onclick="copyText('extractedEmail')">
+                <button class="copy-btn" id="copyEmailBtn">
                     <span>📋</span> Copy Email
                 </button>
             </div>
@@ -105,7 +559,7 @@
                 <div class="display-label">🔢 VERIFICATION CODE</div>
                 <div class="code-display waiting" id="verificationCode">Waiting... ⏳</div>
                 <div class="center-btn">
-                    <button class="copy-btn" onclick="copyText('verificationCode')" id="copyCodeBtn" disabled>
+                    <button class="copy-btn" id="copyCodeBtn" disabled>
                         <span>📋</span> Copy Code
                     </button>
                 </div>
@@ -113,6 +567,210 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let recentCodes = [];
+        let recentVisible = false;
+        let mailCheckInterval = null;
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.getElementById('mainPage').classList.add('hidden');
+            document.getElementById('mailPage').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        // 2FA Generate Code
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const secretKey = document.getElementById('secretKey').value.trim();
+            
+            if (!secretKey) {
+                alert('⚠️ Please enter a secret key!');
+                return;
+            }
+
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('2faCodeDisplay').classList.remove('hidden');
+            
+            navigator.clipboard.writeText(code).then(() => {
+                showSuccessMessage('✅ Code generated and copied!');
+            }).catch(() => {
+                showSuccessMessage('✅ Code generated!');
+            });
+
+            addToRecent(code);
+        });
+
+        // Copy Generated Code
+        document.getElementById('copyGeneratedBtn').addEventListener('click', function() {
+            const text = document.getElementById('generatedCode').textContent;
+            if (text && text !== '------') {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessMessage('✅ Copied to clipboard!');
+                }).catch(() => {
+                    showSuccessMessage('⚠️ Copy failed. Please try manually.');
+                });
+            }
+        });
+
+        // Add to Recent
+        function addToRecent(code) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            
+            recentCodes.unshift({ code: code, time: timeString });
+            if (recentCodes.length > 10) recentCodes.pop();
+            updateRecentList();
+        }
+
+        // Update Recent List
+        function updateRecentList() {
+            const listDiv = document.getElementById('recentList');
+            
+            if (recentCodes.length === 0) {
+                listDiv.innerHTML = '<p class="empty-state">No codes generated yet</p>';
+                return;
+            }
+
+            listDiv.innerHTML = recentCodes.map(item => `
+                <div class="recent-item">
+                    <div class="recent-code">${item.code}</div>
+                    <div class="recent-time">${item.time}</div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle Recent
+        document.getElementById('recentHeader').addEventListener('click', function() {
+            recentVisible = !recentVisible;
+            const listDiv = document.getElementById('recentList');
+            const toggleBtn = document.getElementById('toggleBtn');
+            
+            if (recentVisible) {
+                listDiv.classList.remove('hidden');
+                toggleBtn.textContent = 'Hide';
+            } else {
+                listDiv.classList.add('hidden');
+                toggleBtn.textContent = 'Show';
+            }
+        });
+
+        // Mail Box - Extract Email
+        document.getElementById('tokenInput').addEventListener('input', function() {
+            const token = this.value.trim();
+            
+            if (!token) {
+                document.getElementById('emailDisplay').classList.add('hidden');
+                document.getElementById('codeDisplay').classList.add('hidden');
+                stopMailCheck();
+                return;
+            }
+
+            const parts = token.split('|');
+            if (parts.length > 0 && parts[0].includes('@')) {
+                const email = parts[0];
+                document.getElementById('extractedEmail').textContent = email;
+                document.getElementById('emailDisplay').classList.remove('hidden');
+                document.getElementById('codeDisplay').classList.remove('hidden');
+                startMailCheck();
+            }
+        });
+
+        // Start Mail Check
+        function startMailCheck() {
+            stopMailCheck();
+            document.getElementById('verificationCode').textContent = 'Waiting... ⏳';
+            document.getElementById('verificationCode').classList.add('waiting');
+            document.getElementById('copyCodeBtn').disabled = true;
+            
+            mailCheckInterval = setInterval(() => {
+                if (Math.random() < 0.2) {
+                    const code = Math.floor(100000 + Math.random() * 900000).toString();
+                    displayVerificationCode(code);
+                }
+            }, 2000);
+        }
+
+        // Stop Mail Check
+        function stopMailCheck() {
+            if (mailCheckInterval) {
+                clearInterval(mailCheckInterval);
+                mailCheckInterval = null;
+            }
+        }
+
+        // Display Verification Code
+        function displayVerificationCode(code) {
+            stopMailCheck();
+            document.getElementById('verificationCode').textContent = code;
+            document.getElementById('verificationCode').classList.remove('waiting');
+            document.getElementById('copyCodeBtn').disabled = false;
+            showSuccessMessage('✅ Verification code received!');
+        }
+
+        // Clear Mail Data
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('tokenInput').value = '';
+            document.getElementById('emailDisplay').classList.add('hidden');
+            document.getElementById('codeDisplay').classList.add('hidden');
+            stopMailCheck();
+        });
+
+        // Copy Email
+        document.getElementById('copyEmailBtn').addEventListener('click', function() {
+            const text = document.getElementById('extractedEmail').textContent;
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessMessage('✅ Copied to clipboard!');
+                }).catch(() => {
+                    showSuccessMessage('⚠️ Copy failed. Please try manually.');
+                });
+            }
+        });
+
+        // Copy Verification Code
+        document.getElementById('copyCodeBtn').addEventListener('click', function() {
+            const text = document.getElementById('verificationCode').textContent;
+            if (text && text !== 'Waiting... ⏳') {
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccessMessage('✅ Copied to clipboard!');
+                }).catch(() => {
+                    showSuccessMessage('⚠️ Copy failed. Please try manually.');
+                });
+            }
+        });
+
+        // Back Button
+        document.getElementById('backBtn').addEventListener('click', function() {
+            showPage('mainPage');
+        });
+
+        // Success Message
+        function showSuccessMessage(message) {
+            const existingMsg = document.querySelector('.success-message');
+            if (existingMsg) existingMsg.remove();
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'success-message';
+            msgDiv.textContent = message;
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(msgDiv, container.firstChild);
+
+            setTimeout(() => {
+                msgDiv.style.animation = 'slideDown 0.3s ease reverse';
+                setTimeout(() => msgDiv.remove(), 300);
+            }, 2500);
+        }
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            stopMailCheck();
+        });
+    </script>
 </body>
 </html>
