@@ -1,123 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Authentication Portal</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Main Page -->
-        <div id="mainPage">
-            <div class="header">
-                <h1>🔐 Secure Authentication Portal</h1>
-                <p>Generate codes instantly</p>
-            </div>
-            <div class="card">
-                <div class="button-grid">
-                    <button class="main-button" onclick="showPage('2faPage')">
-                        <span class="icon">🔐</span>
-                        <span>2FA AUTH</span>
-                    </button>
-                    <button class="main-button" onclick="showPage('mailPage')">
-                        <span class="icon">📧</span>
-                        <span>MAIL BOX</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2FA Page -->
-        <div id="2faPage" class="hidden">
-            <button class="back-btn" onclick="showPage('mainPage')">
-                <span>←</span> Back
+<!-- Main Page -->
+<div id="mainPage">
+    <div class="header">
+        <h1>🔐 Secure Authentication Portal</h1>
+        <p>Generate codes instantly</p>
+    </div>
+    <div class="card">
+        <div class="button-grid">
+            <button class="main-button" onclick="showPage('2faPage')">
+                <span class="icon">🔐</span>
             </button>
-            
-            <div class="header">
-                <h1>🔐 2FA Authenticator</h1>
-                <p>Secure Time-based One-Time Password Generator</p>
-            </div>
-
-            <div class="card">
-                <div class="input-group">
-                    <div class="input-label">SECRET KEY</div>
-                    <input type="text" id="secretKey" class="input-box" placeholder="J8WHY1DRHMPKJ9XP">
-                </div>
-                <button class="btn" onclick="generate2FACode()">
-                    <span>🔑</span> Generate Code
-                </button>
-            </div>
-
-            <div id="2faCodeDisplay" class="card hidden">
-                <div class="display-label">GENERATED CODE</div>
-                <div class="code-display" id="generatedCode">------</div>
-                <div class="center-btn">
-                    <button class="copy-btn" onclick="copyCode('generatedCode')">
-                        <span>📋</span> Copy Code
-                    </button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="recent-codes">
-                    <div class="recent-header" onclick="toggleRecent()">
-                        <div class="recent-title">
-                            <span class="checkbox">☐</span>
-                            <h3>Recent Codes</h3>
-                        </div>
-                        <button class="toggle-btn" id="toggleBtn">Show</button>
-                    </div>
-                    <div id="recentList" class="recent-list hidden">
-                        <p class="empty-state">No codes generated yet</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mail Box Page -->
-        <div id="mailPage" class="hidden">
-            <button class="back-btn" onclick="showPage('mainPage')">
-                <span>←</span> Back
+            <button class="main-button" onclick="showPage('mailPage')">
+                <span class="icon">📧</span>
             </button>
-            
-            <div class="header">
-                <h1>📧 Get Hotmail/Outlook</h1>
-                <p>Verification Code</p>
-            </div>
-
-            <div class="card">
-                <div class="input-group">
-                    <div class="input-header">
-                        <div class="input-label">Account Details</div>
-                        <button class="clear-btn" onclick="clearMailData()">
-                            <span>✕</span> Clear
-                        </button>
-                    </div>
-                    <textarea id="tokenInput" class="input-box" placeholder="Paste full token here...&#10;email|password|token" oninput="extractEmail()"></textarea>
-                </div>
-            </div>
-
-            <div id="emailDisplay" class="card hidden">
-                <div class="display-label">📧 EXTRACTED EMAIL</div>
-                <div class="display-content" id="extractedEmail"></div>
-                <button class="copy-btn" onclick="copyText('extractedEmail')">
-                    <span>📋</span> Copy Email
-                </button>
-            </div>
-
-            <div id="codeDisplay" class="card hidden">
-                <div class="display-label">🔢 VERIFICATION CODE</div>
-                <div class="code-display waiting" id="verificationCode">Waiting... ⏳</div>
-                <div class="center-btn">
-                    <button class="copy-btn" onclick="copyText('verificationCode')" id="copyCodeBtn" disabled>
-                        <span>📋</span> Copy Code
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
