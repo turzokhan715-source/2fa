@@ -197,4 +197,3 @@ function showSuccessMessage(message) {
 window.addEventListener('beforeunload', () => {
     stopMailCheck();
 });
-
