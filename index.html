@@ -36,13 +36,13 @@
             
             <div class="header">
                 <h1>🔐 2FA Authenticator</h1>
-                <p>Secure Time-based OTP Generator</p>
+                <p>Secure Time-based One-Time Password Generator</p>
             </div>
 
             <div class="card">
                 <div class="input-group">
                     <div class="input-label">SECRET KEY</div>
-                    <input type="text" id="secretKey" class="input-box" placeholder="Enter your secret key...">
+                    <input type="text" id="secretKey" class="input-box" placeholder="J8WHY1DRHMPKJ9XP">
                 </div>
                 <button class="btn" onclick="generate2FACode()">
                     <span>🔑</span> Generate Code
@@ -62,7 +62,10 @@
             <div class="card">
                 <div class="recent-codes">
                     <div class="recent-header" onclick="toggleRecent()">
-                        <h3>📋 Recent Codes</h3>
+                        <div class="recent-title">
+                            <span class="checkbox">☐</span>
+                            <h3>Recent Codes</h3>
+                        </div>
                         <button class="toggle-btn" id="toggleBtn">Show</button>
                     </div>
                     <div id="recentList" class="recent-list hidden">
