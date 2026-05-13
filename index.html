@@ -30,7 +30,9 @@
 
         <!-- 2FA Page -->
         <div id="2faPage" class="hidden">
-            <button class="back-btn" onclick="showPage('mainPage')">← Back</button>
+            <button class="back-btn" onclick="showPage('mainPage')">
+                <span>←</span> Back
+            </button>
             
             <div class="header">
                 <h1>🔐 2FA Authenticator</h1>
@@ -43,15 +45,17 @@
                     <input type="text" id="secretKey" class="input-box" placeholder="Enter your secret key...">
                 </div>
                 <button class="btn" onclick="generate2FACode()">
-                    🔑 Generate Code
+                    <span>🔑</span> Generate Code
                 </button>
             </div>
 
             <div id="2faCodeDisplay" class="card hidden">
                 <div class="display-label">GENERATED CODE</div>
                 <div class="code-display" id="generatedCode">------</div>
-                <div style="text-align: center; margin-top: 15px;">
-                    <button class="copy-btn" onclick="copyCode('generatedCode')">📋 Copy Code</button>
+                <div class="center-btn">
+                    <button class="copy-btn" onclick="copyCode('generatedCode')">
+                        <span>📋</span> Copy Code
+                    </button>
                 </div>
             </div>
 
@@ -62,8 +66,7 @@
                         <button class="toggle-btn" id="toggleBtn">Show</button>
                     </div>
                     <div id="recentList" class="recent-list hidden">
-                        <p style="text-align: center; color: 
-;">No codes generated yet</p>
+                        <p class="empty-state">No codes generated yet</p>
                     </div>
                 </div>
             </div>
@@ -71,7 +74,9 @@
 
         <!-- Mail Box Page -->
         <div id="mailPage" class="hidden">
-            <button class="back-btn" onclick="showPage('mainPage')">← Back</button>
+            <button class="back-btn" onclick="showPage('mainPage')">
+                <span>←</span> Back
+            </button>
             
             <div class="header">
                 <h1>📧 Get Hotmail/Outlook</h1>
@@ -82,7 +87,9 @@
                 <div class="input-group">
                     <div class="input-header">
                         <div class="input-label">Account Details</div>
-                        <button class="clear-btn" onclick="clearMailData()">✕ Clear</button>
+                        <button class="clear-btn" onclick="clearMailData()">
+                            <span>✕</span> Clear
+                        </button>
                     </div>
                     <textarea id="tokenInput" class="input-box" placeholder="Paste full token here...&#10;email|password|token" oninput="extractEmail()"></textarea>
                 </div>
@@ -91,14 +98,18 @@
             <div id="emailDisplay" class="card hidden">
                 <div class="display-label">📧 EXTRACTED EMAIL</div>
                 <div class="display-content" id="extractedEmail"></div>
-                <button class="copy-btn" onclick="copyText('extractedEmail')">📋 Copy Email</button>
+                <button class="copy-btn" onclick="copyText('extractedEmail')">
+                    <span>📋</span> Copy Email
+                </button>
             </div>
 
             <div id="codeDisplay" class="card hidden">
                 <div class="display-label">🔢 VERIFICATION CODE</div>
                 <div class="code-display waiting" id="verificationCode">Waiting... ⏳</div>
-                <div style="text-align: center; margin-top: 15px;">
-                    <button class="copy-btn" onclick="copyText('verificationCode')" id="copyCodeBtn" disabled style="opacity: 0.5;">📋 Copy Code</button>
+                <div class="center-btn">
+                    <button class="copy-btn" onclick="copyText('verificationCode')" id="copyCodeBtn" disabled>
+                        <span>📋</span> Copy Code
+                    </button>
                 </div>
             </div>
         </div>
